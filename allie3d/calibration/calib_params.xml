@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf8'?>
+<parameters>
+    
+    <camera>
+        <phoneBrand>apple</phoneBrand>
+        <phoneModel>iphone8</phoneModel>
+        <calibrationFile>config/camera.json</calibrationFile>
+        <imagesFolder>calibration_resized</imagesFolder>
+        <viewCalibration>True</viewCalibration>
+    </camera>
+</parameters>
