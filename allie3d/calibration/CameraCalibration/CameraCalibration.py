@@ -84,17 +84,17 @@ class CameraCalibration:
         self.dump_param(self.fpath, camera_matrix, distort)
         h, w = orig.shape[:2]
         new_camera_matrix, roi = cv.getOptimalNewCameraMatrix(self.K, self.D, (w, h), 1, (w, h))
-        distort = cv.undistort(orig, self.K, self.D, None, new_camera_matrix)
+        new_distort = cv.undistort(orig, self.K, self.D, None, new_camera_matrix)
 
         # Cortando a imagem
         x1, y1, w1, h1 = roi
-        distort = distort[y1:(y1 + h1), x1:(x1 + w1)]
-        distort = cv.resize(distort, (w, h))
+        new_distort = new_distort[y1:(y1 + h1), x1:(x1 + w1)]
+        new_distort = cv.resize(new_distort, (w, h))
 
         orig = cv.drawChessboardCorners(orig, board_size, corners2, True)
         
         if self.viewCalibration:
-            im_h = cv.hconcat([orig, distort])
+            im_h = cv.hconcat([orig, new_distort])
             cv.putText(im_h, 'Press Any Key to Continue', (10, 30), cv.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
             cv.imshow('result', im_h)
             cv.waitKey(0)
